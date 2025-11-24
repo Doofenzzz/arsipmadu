@@ -1,0 +1,17 @@
+[90m= [39m[34;4mApp\Models\Nasabah[39;24m {#6561
+    [34mid[39m: [35m6[39m,
+    [34mno_nasabah[39m: "[32mNSB202511190001[39m",
+    [34mnama_lengkap[39m: "[32mDifa Aura[39m",
+    [34mnik[39m: "[32m1209301029301923[39m",
+    [34malamat[39m: "[32mSekijang[39m",
+    [34mtelepon[39m: "[32m082287449012[39m",
+    [34memail[39m: "[32mdifa@gmail.com[39m",
+    [34mtanggal_lahir[39m: "[32m2005-12-05[39m",
+    [34mjenis_kelamin[39m: "[32mPerempuan[39m",
+    [34mpekerjaan[39m: "[32mCEO[39m",
+    [34mpenghasilan[39m: "[32m120000000.00[39m",
+    [34muser_id[39m: [35m4[39m,
+    [34mcreated_at[39m: "[32m2025-11-19 11:28:01[39m",
+    [34mupdated_at[39m: "[32m2025-11-19 11:28:01[39m",
+  }
+
