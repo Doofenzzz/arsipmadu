@@ -37,28 +37,38 @@
                         $inactiveClass = "text-blue-100 hover:bg-blue-500/50 hover:text-white";
                     @endphp
 
-                    <a href="{{ route('home') }}" class="{{ $navClass }} {{ request()->routeIs('home') ? $activeClass : $inactiveClass }}">
-                        Home
-                    </a>
-                    <a href="{{ route('about') }}" class="{{ $navClass }} {{ request()->routeIs('about') ? $activeClass : $inactiveClass }}">
-                        Tentang Bank
-                    </a>
-                    <a href="{{ route('nasabah.index') }}" class="{{ $navClass }} {{ request()->routeIs('nasabah.*') ? $activeClass : $inactiveClass }}">
-                        Data Nasabah
-                    </a>
-                    <a href="{{ route('kredit.index') }}" class="{{ $navClass }} {{ request()->routeIs('kredit.*') ? $activeClass : $inactiveClass }}">
-                        Pengajuan Kredit
-                    </a>
-                    <a href="{{ route('dokumen.index') }}" class="{{ $navClass }} {{ request()->routeIs('dokumen.*') ? $activeClass : $inactiveClass }}">
-                        Dokumen
-                    </a>
+                    {{-- --- LOGIKA NON-ADMIN (NASABAH) --- --}}
+                    {{-- Kalau BUKAN admin, tampilin menu-menu ini --}}
+                    @if(!Auth::user()->isAdmin())
+                        <a href="{{ route('home') }}" class="{{ $navClass }} {{ request()->routeIs('home') ? $activeClass : $inactiveClass }}">
+                            Home
+                        </a>
+                        <a href="{{ route('about') }}" class="{{ $navClass }} {{ request()->routeIs('about') ? $activeClass : $inactiveClass }}">
+                            Tentang Bank
+                        </a>
+                        <a href="{{ route('nasabah.index') }}" class="{{ $navClass }} {{ request()->routeIs('nasabah.*') ? $activeClass : $inactiveClass }}">
+                            Data Nasabah
+                        </a>
+                        <a href="{{ route('kredit.index') }}" class="{{ $navClass }} {{ request()->routeIs('kredit.*') ? $activeClass : $inactiveClass }}">
+                            Pengajuan Kredit
+                        </a>
+                        <a href="{{ route('dokumen.index') }}" class="{{ $navClass }} {{ request()->routeIs('dokumen.*') ? $activeClass : $inactiveClass }}">
+                            Dokumen
+                        </a>
+                    @endif
+
+                    {{-- --- LOGIKA SHARED (SEMUA BISA LIHAT) --- --}}
+                    {{-- Karena Admin dan Nasabah sama-sama butuh akses Laporan --}}
                     <a href="{{ route('laporan.riwayat') }}" class="{{ $navClass }} {{ request()->routeIs('laporan.*') ? $activeClass : $inactiveClass }}">
                         Laporan
                     </a>
+
+                    {{-- --- LOGIKA KHUSUS ADMIN --- --}}
+                    {{-- Cuma Admin yang bisa lihat ini --}}
                     @if(Auth::user()->isAdmin())
-                    <a href="{{ route('admin.users.index') }}" class="{{ $navClass }} {{ request()->routeIs('admin.*') ? $activeClass : $inactiveClass }}">
-                        Kelola User
-                    </a>
+                        <a href="{{ route('admin.users.index') }}" class="{{ $navClass }} {{ request()->routeIs('admin.*') ? $activeClass : $inactiveClass }}">
+                            Kelola User
+                        </a>
                     @endif
                 </div>
             </div>
