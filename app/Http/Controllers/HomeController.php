@@ -14,23 +14,9 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        
-        $nasabahs = Nasabah::latest()->paginate(10);
-        $totalNasabah = $nasabahs->total();
 
         if ($user->isAdmin()) {
-            $stats = [
-                'total_nasabah' => $totalNasabah,
-                'total_kredit' => Kredit::count(),
-                'total_dokumen' => DokumenNasabah::count(),
-                'total_user' => \App\Models\User::count(),
-                'kredit_pending' => Kredit::where('status', 'Pending')->count(),
-                'kredit_disetujui' => Kredit::where('status', 'Disetujui')->count(),
-                'kredit_ditolak' => Kredit::where('status', 'Ditolak')->count(),
-            ];
-            
-            $recent_kredits = Kredit::with('nasabah')->latest()->take(5)->get();
-            $recent_dokumens = DokumenNasabah::with('nasabah')->latest()->take(5)->get();
+            return redirect()->route('laporan.riwayat');
         } else {
             $stats = [
                 'total_nasabah' => Nasabah::where('user_id', $user->id)->count(),

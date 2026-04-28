@@ -15,7 +15,7 @@
 
             <!-- Form -->
             <div class="bg-white rounded-xl shadow-lg p-8">
-                <form action="{{ route('kredit.store') }}" method="POST">
+                <form action="{{ route('kredit.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -58,6 +58,20 @@
                             <input type="date" name="tanggal_pengajuan" id="tanggal_pengajuan" value="{{ old('tanggal_pengajuan', date('Y-m-d')) }}" required
                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200 @error('tanggal_pengajuan') border-red-500 @enderror">
                             @error('tanggal_pengajuan')
+                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Status -->
+                        <div>
+                            <label for="status" class="block text-sm font-semibold text-gray-700 mb-2">Status <span class="text-red-500">*</span></label>
+                            <select name="status" id="status" required
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200 @error('status') border-red-500 @enderror">
+                                <option value="Pending" {{ old('status', 'Pending') == 'Pending' ? 'selected' : '' }}>Pending</option>
+                                <option value="Disetujui" {{ old('status') == 'Disetujui' ? 'selected' : '' }}>Diterima</option>
+                                <option value="Ditolak" {{ old('status') == 'Ditolak' ? 'selected' : '' }}>Ditolak</option>
+                            </select>
+                            @error('status')
                                 <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                             @enderror
                         </div>
@@ -111,17 +125,55 @@
                                 <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                             @enderror
                         </div>
-                    </div>
 
-                    <!-- Info Box -->
-                    <div class="mt-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
-                        <div class="flex">
-                            <svg class="w-5 h-5 text-blue-500 mr-3 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
-                            </svg>
-                            <div>
-                                <p class="text-sm text-blue-700 font-semibold">Informasi</p>
-                                <p class="text-xs text-blue-600 mt-1">Pengajuan kredit akan diproses oleh tim kami. Status pengajuan akan diupdate dalam 3-5 hari kerja.</p>
+                        <!-- Dokumen Pendukung -->
+                        <div class="md:col-span-2 border-t border-gray-200 pt-6">
+                            <h2 class="text-lg font-bold text-gray-900 mb-4">Dokumen Pendukung</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="jenis_dokumen" class="block text-sm font-semibold text-gray-700 mb-2">Jenis Dokumen <span class="text-red-500">*</span></label>
+                                    <select name="jenis_dokumen" id="jenis_dokumen" required
+                                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200 @error('jenis_dokumen') border-red-500 @enderror">
+                                        <option value="">-- Pilih Jenis Dokumen --</option>
+                                        <option value="KTP" {{ old('jenis_dokumen') == 'KTP' ? 'selected' : '' }}>KTP</option>
+                                        <option value="KK" {{ old('jenis_dokumen') == 'KK' ? 'selected' : '' }}>Kartu Keluarga</option>
+                                        <option value="NPWP" {{ old('jenis_dokumen') == 'NPWP' ? 'selected' : '' }}>NPWP</option>
+                                        <option value="Slip Gaji" {{ old('jenis_dokumen') == 'Slip Gaji' ? 'selected' : '' }}>Slip Gaji</option>
+                                        <option value="Jaminan" {{ old('jenis_dokumen') == 'Jaminan' ? 'selected' : '' }}>Dokumen Jaminan</option>
+                                        <option value="Lainnya" {{ old('jenis_dokumen') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                                    </select>
+                                    @error('jenis_dokumen')
+                                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <div>
+                                    <label for="tanggal_upload" class="block text-sm font-semibold text-gray-700 mb-2">Tanggal Dokumen <span class="text-red-500">*</span></label>
+                                    <input type="date" name="tanggal_upload" id="tanggal_upload" value="{{ old('tanggal_upload', date('Y-m-d')) }}" required
+                                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200 @error('tanggal_upload') border-red-500 @enderror">
+                                    @error('tanggal_upload')
+                                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <div class="md:col-span-2">
+                                    <label for="file" class="block text-sm font-semibold text-gray-700 mb-2">File Dokumen <span class="text-red-500">*</span></label>
+                                    <input type="file" name="file" id="file" required accept=".pdf,.jpg,.jpeg,.png"
+                                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200 @error('file') border-red-500 @enderror">
+                                    @error('file')
+                                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <div class="md:col-span-2">
+                                    <label for="keterangan" class="block text-sm font-semibold text-gray-700 mb-2">Keterangan Dokumen</label>
+                                    <textarea name="keterangan" id="keterangan" rows="3"
+                                              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200 @error('keterangan') border-red-500 @enderror"
+                                              placeholder="Keterangan tambahan dokumen...">{{ old('keterangan') }}</textarea>
+                                    @error('keterangan')
+                                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
                     </div>

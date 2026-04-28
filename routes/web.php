@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('kredit', KreditController::class);
     
     // Dokumen Routes
+    Route::get('dokumen/{dokumen}/view', [DokumenNasabahController::class, 'view'])->name('dokumen.view');
     Route::get('dokumen/{dokumen}/download', [DokumenNasabahController::class, 'download'])->name('dokumen.download');
     Route::resource('dokumen', DokumenNasabahController::class)->except(['edit', 'update']);
     Route::get('/dokumen/{id}/edit', [DokumenNasabahController::class, 'edit'])->name('dokumen.edit');

@@ -84,11 +84,58 @@
                     </div>
 
                     @if($kredit->catatan)
-                    <div class="bg-white rounded-xl shadow-lg p-8">
+                    <div class="bg-white rounded-xl shadow-lg p-8 mb-6">
                         <h3 class="text-xl font-bold text-gray-900 mb-4">Catatan</h3>
                         <p class="text-gray-700 leading-relaxed">{{ $kredit->catatan }}</p>
                     </div>
                     @endif
+
+                    <div class="bg-white rounded-xl shadow-lg p-8">
+                        <h3 class="text-xl font-bold text-gray-900 mb-6">Dokumen Pendukung</h3>
+                        @if($dokumens->count() > 0)
+                        <div class="space-y-6">
+                            @foreach($dokumens as $dokumen)
+                            @php
+                                $extension = strtolower(pathinfo($dokumen->nama_file, PATHINFO_EXTENSION));
+                                $fileExists = $dokumen->file_path && \Storage::disk('public')->exists($dokumen->file_path);
+                                $fileUrl = $fileExists ? route('dokumen.view', $dokumen->id) : null;
+                            @endphp
+                            <div class="border border-gray-200 rounded-lg p-5">
+                                <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
+                                    <div>
+                                        <p class="font-semibold text-gray-900">{{ $dokumen->jenis_dokumen }}</p>
+                                        <p class="text-sm text-gray-500 break-all">{{ $dokumen->nama_file }}</p>
+                                        <p class="text-xs text-gray-500 mt-1">Tanggal: {{ $dokumen->tanggal_upload->format('d M Y') }}</p>
+                                        @if($dokumen->keterangan)
+                                        <p class="text-sm text-gray-700 mt-2">{{ $dokumen->keterangan }}</p>
+                                        @endif
+                                    </div>
+                                    @if($fileExists)
+                                    <div class="flex items-center gap-3">
+                                        <a href="{{ $fileUrl }}" target="_blank" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg">Lihat</a>
+                                        <a href="{{ route('dokumen.download', $dokumen->id) }}" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold rounded-lg">Download</a>
+                                    </div>
+                                    @endif
+                                </div>
+
+                                @if($fileExists && $extension === 'pdf')
+                                <div class="border border-gray-200 rounded-lg overflow-hidden h-96">
+                                    <iframe src="{{ $fileUrl }}" class="w-full h-full" frameborder="0"></iframe>
+                                </div>
+                                @elseif($fileExists && in_array($extension, ['jpg', 'jpeg', 'png']))
+                                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                                    <img src="{{ $fileUrl }}" alt="{{ $dokumen->nama_file }}" class="w-full h-auto">
+                                </div>
+                                @elseif(!$fileExists)
+                                <div class="bg-red-50 text-red-700 text-sm font-semibold rounded-lg p-4">File dokumen tidak ditemukan.</div>
+                                @endif
+                            </div>
+                            @endforeach
+                        </div>
+                        @else
+                        <p class="text-gray-500 text-center py-8">Belum ada dokumen pendukung untuk nasabah ini.</p>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>

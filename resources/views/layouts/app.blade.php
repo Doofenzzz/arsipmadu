@@ -17,7 +17,7 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('home') }}" class="flex items-center space-x-3 group">
+                    <a href="{{ Auth::user()->isAdmin() ? route('laporan.riwayat') : route('home') }}" class="flex items-center space-x-3 group">
                         <div class="bg-white/10 p-2 rounded-lg backdrop-blur-sm group-hover:bg-white/20 transition duration-300">
                             <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
@@ -51,9 +51,6 @@
                         </a>
                         <a href="{{ route('kredit.index') }}" class="{{ $navClass }} {{ request()->routeIs('kredit.*') ? $activeClass : $inactiveClass }}">
                             Pengajuan Kredit
-                        </a>
-                        <a href="{{ route('dokumen.index') }}" class="{{ $navClass }} {{ request()->routeIs('dokumen.*') ? $activeClass : $inactiveClass }}">
-                            Dokumen
                         </a>
                     @endif
 

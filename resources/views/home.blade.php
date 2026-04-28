@@ -10,6 +10,7 @@
                 </div>
             </div>
 
+            @unless(Auth::user()->isAdmin())
             <!-- Stats Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-blue-500 hover:shadow-xl transition duration-200">
@@ -69,6 +70,7 @@
                     </div>
                 </div>
             </div>
+            @endunless
 
             <!-- Recent Activity -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -134,17 +136,15 @@
                         @else
                         <p class="text-gray-500 text-center py-8">Belum ada dokumen</p>
                         @endif
-                        <a href="{{ route('dokumen.index') }}" class="block mt-4 text-center text-blue-600 hover:text-blue-800 font-semibold">
-                            Lihat Semua →
-                        </a>
                     </div>
                 </div>
             </div>
 
+            @unless(Auth::user()->isAdmin())
             <!-- Quick Actions -->
             <div class="mt-8 bg-white rounded-xl shadow-lg p-6">
                 <h2 class="text-xl font-bold text-gray-900 mb-4">Quick Actions</h2>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                     <a href="{{ route('nasabah.create') }}" class="flex flex-col items-center justify-center p-6 bg-blue-50 rounded-lg hover:bg-blue-100 transition">
                         <svg class="w-10 h-10 text-blue-600 mb-2" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"/>
@@ -158,12 +158,6 @@
                         </svg>
                         <span class="text-sm font-semibold text-gray-700">Ajukan Kredit</span>
                     </a>
-                    <a href="{{ route('dokumen.create') }}" class="flex flex-col items-center justify-center p-6 bg-purple-50 rounded-lg hover:bg-purple-100 transition">
-                        <svg class="w-10 h-10 text-purple-600 mb-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
-                        </svg>
-                        <span class="text-sm font-semibold text-gray-700">Upload Dokumen</span>
-                    </a>
                     <a href="{{ route('laporan.riwayat') }}" class="flex flex-col items-center justify-center p-6 bg-yellow-50 rounded-lg hover:bg-yellow-100 transition">
                         <svg class="w-10 h-10 text-yellow-600 mb-2" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
@@ -173,6 +167,7 @@
                     </a>
                 </div>
             </div>
+            @endunless
         </div>
     </div>
 </x-app-layout>

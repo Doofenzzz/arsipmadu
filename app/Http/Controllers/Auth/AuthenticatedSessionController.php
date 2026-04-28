@@ -28,6 +28,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        if (Auth::user()->isAdmin()) {
+            return redirect()->route('laporan.riwayat');
+        }
+
         return redirect()->intended(route('home', absolute: false));
     }
 

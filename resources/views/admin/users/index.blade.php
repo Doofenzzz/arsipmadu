@@ -5,6 +5,7 @@
                 <div>
                     <h1 class="text-3xl font-bold text-gray-900">Kelola User</h1>
                     <p class="text-gray-600 mt-1">Manajemen user sistem</p>
+                    <p class="text-sm text-gray-500 mt-2">Total User: <span class="font-semibold text-gray-900">{{ $totalUsers }}</span></p>
                 </div>
                 <a href="{{ route('admin.users.create') }}" class="inline-flex items-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow-lg">
                     <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">

@@ -140,4 +140,21 @@ class DokumenNasabahController extends Controller
         
         return Storage::disk('public')->download($dokumen->file_path, $dokumen->nama_file);
     }
+
+    public function view($id)
+    {
+        $dokumen = DokumenNasabah::findOrFail($id);
+
+        if (!$dokumen->file_path || !Storage::disk('public')->exists($dokumen->file_path)) {
+            abort(404, 'File tidak ditemukan di server');
+        }
+
+        $path = Storage::disk('public')->path($dokumen->file_path);
+        $mimeType = Storage::disk('public')->mimeType($dokumen->file_path);
+
+        return response()->file($path, [
+            'Content-Type' => $mimeType,
+            'Content-Disposition' => 'inline; filename="' . $dokumen->nama_file . '"',
+        ]);
+    }
 }

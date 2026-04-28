@@ -183,7 +183,7 @@
 
                         @php
                             $extension = strtolower(pathinfo($dokumen->nama_file, PATHINFO_EXTENSION));
-                            $fileUrl = \Storage::url($dokumen->file_path);
+                            $fileUrl = route('dokumen.view', $dokumen->id);
                         @endphp
 
                         @if($extension === 'pdf')

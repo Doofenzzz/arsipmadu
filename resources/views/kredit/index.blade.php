@@ -7,12 +7,14 @@
                     <h1 class="text-3xl font-bold text-gray-900">Pengajuan Kredit</h1>
                     <p class="text-gray-600 mt-1">Kelola pengajuan kredit nasabah</p>
                 </div>
+                @unless(Auth::user()->isAdmin())
                 <a href="{{ route('kredit.create') }}" class="inline-flex items-center px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow-lg transition duration-200 transform hover:-translate-y-0.5">
                     <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
                     </svg>
                     Ajukan Kredit
                 </a>
+                @endunless
             </div>
 
             <!-- Stats -->
@@ -158,7 +160,9 @@
                                             <path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd"/>
                                         </svg>
                                         <p class="text-gray-500 text-lg font-semibold">Belum ada pengajuan kredit</p>
+                                        @unless(Auth::user()->isAdmin())
                                         <p class="text-gray-400 text-sm mt-1">Klik tombol "Ajukan Kredit" untuk membuat pengajuan baru</p>
+                                        @endunless
                                     </div>
                                 </td>
                             </tr>

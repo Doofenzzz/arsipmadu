@@ -2,7 +2,7 @@
     <div class="py-12">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="mb-6">
-                <a href="{{ route('laporan.index') }}" class="inline-flex items-center text-yellow-600 hover:text-yellow-800 mb-4">
+                <a href="{{ route('laporan.riwayat') }}" class="inline-flex items-center text-yellow-600 hover:text-yellow-800 mb-4">
                     <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
                     </svg>
@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="flex items-center justify-end space-x-4 mt-8 pt-6 border-t">
-                        <a href="{{ route('laporan.index') }}" class="px-6 py-3 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold rounded-lg">Batal</a>
+                        <a href="{{ route('laporan.riwayat') }}" class="px-6 py-3 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold rounded-lg">Batal</a>
                         <button type="submit" class="px-6 py-3 bg-yellow-600 hover:bg-yellow-700 text-white font-semibold rounded-lg shadow-lg">Simpan Laporan</button>
                     </div>
                 </form>
